@@ -22,7 +22,7 @@ public class FloppaLeaderboard extends Command {
             String domain = "https://s.deewend.ru/gkgameserver?action=view_leaderboard";
 
             if(args.size() != 0) {
-                if(args.get(0) == "alt") {
+                if(args.get(0).equals("alt")) {
                     domain = "https://yourfriend.eu.pythonanywhere.com/gkgameserver?action=view_leaderboard";
                 }
             }   

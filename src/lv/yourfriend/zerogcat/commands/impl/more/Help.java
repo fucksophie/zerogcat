@@ -10,6 +10,7 @@ import lv.yourfriend.zerogcat.answers.AnswerManager;
 import lv.yourfriend.zerogcat.commands.Command;
 import lv.yourfriend.zerogcat.commands.CommandManager;
 import lv.yourfriend.zerogcat.utils.Config;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -53,6 +54,17 @@ public class Help extends Command {
 
         final String y = help;
         try {
+            if (author.hasPermission(Permission.ADMINISTRATOR)) {
+                if(args.size() != 0) {
+                    if(args.get(0).equals("alt")) {
+                        message.getChannel().sendMessage(y).queue();
+                        return;
+                    }
+                }
+            } else {
+                message.reply("No permissons.").queue();
+            }
+
             author.getUser().openPrivateChannel()
                     .flatMap(channel -> channel.sendMessage(y))
                     .complete();
