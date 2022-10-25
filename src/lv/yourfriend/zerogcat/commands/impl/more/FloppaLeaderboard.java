@@ -19,18 +19,18 @@ public class FloppaLeaderboard extends Command {
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
         try {
-            String domain = "https://s.deewend.ru/gkgameserver?action=view_leaderboard";
+            String domain = "https://s.deewend.ru/gkgame";
 
             if(args.size() != 0) {
                 if(args.get(0).equals("alt")) {
-                    domain = "https://yourfriend.eu.pythonanywhere.com/gkgameserver?action=view_leaderboard";
+                    domain = "https://yourfriend.eu.pythonanywhere.com/gkgame";
                 }
             }   
 
-            String fullMsg = "Play this game at https://s.deewend.ru/gkgame/ !\n```ansi\n";
+            String fullMsg = "Play this game at " + domain + " !\n```ansi\n";
 
             try (Scanner s = new Scanner(
-                    new URL(domain).openStream())
+                    new URL(domain + "server?action=view_leaderboard").openStream())
                     .useDelimiter("\\A")) {
                 ArrayList<String> parts = new ArrayList<String>(
                         Arrays.asList((s.hasNext() ? s.next() : "").split(" ")));
