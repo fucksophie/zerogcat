@@ -61,8 +61,6 @@ public class Help extends Command {
                         return;
                     }
                 }
-            } else {
-                message.reply("No permissons.").queue();
             }
 
             author.getUser().openPrivateChannel()
