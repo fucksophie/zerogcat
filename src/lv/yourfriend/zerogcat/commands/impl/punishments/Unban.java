@@ -25,7 +25,7 @@ public class Unban extends Command {
             } else {
                 users.forEach(z -> {
                     message.reply("Unbanned " + z.getAsTag() + "!").queue();
-                    Config.db.data.remove("banned-" + z.getId());
+                    Config.db.Delete("banned-" + z.getId());
                 });
             }
         } else {

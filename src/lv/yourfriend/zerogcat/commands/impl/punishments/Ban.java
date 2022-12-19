@@ -25,7 +25,7 @@ public class Ban extends Command {
             } else {
                 users.forEach(z -> {
                     message.reply("Banned " + z.getAsTag() + ".").queue();
-                    Config.db.data.put("banned-" + z.getId(), "banned");
+                    Config.db.Set("banned-" + z.getId(), "banned");
                 });
             }
         } else {

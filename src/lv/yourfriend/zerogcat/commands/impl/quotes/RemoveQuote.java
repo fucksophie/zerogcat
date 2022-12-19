@@ -1,7 +1,9 @@
 package lv.yourfriend.zerogcat.commands.impl.quotes;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Map.Entry;
+
+import org.lmdbjava.CursorIterable.KeyVal;
 
 import lv.yourfriend.zerogcat.commands.Command;
 import lv.yourfriend.zerogcat.utils.Config;
@@ -22,19 +24,21 @@ public class RemoveQuote extends Command {
 
         String value = null;
 
-        for (Entry<String, String> entry : Config.db.data.entrySet()) {
-            String[] parts = entry.getKey().split("-");
+        for (final KeyVal<ByteBuffer> kv : Config.db.Entries()) {
+            String[] parts = Config.db.bts(kv.key()).split("-");
 
             if (parts[0].equals("quote") && parts[1].equals(author.getId()) && parts[2].equals(args.get(0)))
-                value = entry.getKey();
+                value = String.join("-", parts);
         }
+
+        Config.db.Clean();
 
         if (value == null) {
             message.reply("Quote doesn't exist.").queue();
             return;
         }
 
-        Config.db.data.remove(value);
+        Config.db.Delete(value);
         message.reply("Quote removed.").queue();
         return;
     }

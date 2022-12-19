@@ -2,6 +2,7 @@ package lv.yourfriend.zerogcat.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -11,7 +12,7 @@ import com.google.gson.JsonObject;
 public class Config {
     public static String token;
     public static String prefix = "please-";
-    public static FunkyDatabase db;
+    public static LMDBWrapper db;
 
     public static Integer maxAmountOfChannels = 3;
     public static Integer maxAmountOfQuotes = 3;
@@ -28,7 +29,6 @@ public class Config {
 
                 JsonObject o = gson.fromJson(data, JsonObject.class);
                 JsonElement tokenElement = o.get("token");
-                JsonElement databaseElement = o.get("databaseChannel");
                 JsonElement maxAmountOfChannelsElement = o.get("maxAmountOfChannels");
                 JsonElement maxAmountOfQuotesElement = o.get("maxAmountOfQuotes");
                 JsonElement prefixElement = o.get("prefix");
@@ -52,12 +52,7 @@ public class Config {
                     token = tokenElement.getAsString();
                 }
 
-                if (databaseElement == null) {
-                    System.out.println("Missing database channel!");
-                    System.exit(-1);
-                } else {
-                    db = new FunkyDatabase(databaseElement.getAsLong());
-                }
+                db = new LMDBWrapper(Paths.get("database"), "database");
             }
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");

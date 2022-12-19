@@ -16,7 +16,7 @@ public class Delete extends Command {
     }
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
-        if (Config.db.data.get("category-" + guild.getIdLong()) == null) {
+        if (Config.db.Get("category-" + guild.getIdLong()) == null) {
             message.reply("This server is not configured for the channel feature. Please run enablecategory.").queue();
             return;
         }

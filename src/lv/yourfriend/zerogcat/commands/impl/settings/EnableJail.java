@@ -25,7 +25,7 @@ public class EnableJail extends Command {
                 message.reply("Role does not exist.").queue();
                 return;
             } else {
-                Config.db.data.put("jail-" + guild.getId(), args.get(0));
+                Config.db.Set("jail-" + guild.getId(), args.get(0));
                 message.reply("Jail role set!").queue();
                 return;
             }

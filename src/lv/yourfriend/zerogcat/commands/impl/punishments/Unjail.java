@@ -18,7 +18,7 @@ public class Unjail extends Command {
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
         if (author.hasPermission(Permission.ADMINISTRATOR)) {
-            if (Config.db.data.get("jail-" + guild.getIdLong()) == null) {
+            if (Config.db.Get("jail-" + guild.getIdLong()) == null) {
                 message.reply("This server is not configured for the channel feature. Please run enablejail.").queue();
                 return;
             }
@@ -28,7 +28,7 @@ public class Unjail extends Command {
             if (members.size() == 0) {
                 message.reply("No user specified for unjail.").queue();
             } else {
-                Role rank = guild.getRoleById(Config.db.data.get("jail-" + guild.getIdLong()));
+                Role rank = guild.getRoleById(Config.db.Get("jail-" + guild.getIdLong()));
 
                 members.forEach(z -> {
                     List<Role> ranks = z.getRoles();

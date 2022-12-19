@@ -16,11 +16,11 @@ public class DisableJail extends Command {
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
         if (author.hasPermission(Permission.ADMINISTRATOR)) {
-            if (Config.db.data.get("jail-" + guild.getId()) == null) {
+            if (Config.db.Get("jail-" + guild.getId()) == null) {
                 message.reply("Jail is already disabled!").queue();
                 return;
             } else {
-                Config.db.data.remove("jail-" + guild.getId());
+                Config.db.Delete("jail-" + guild.getId());
                 message.reply("Jail disabled!").queue();
                 return;
             }

@@ -17,7 +17,7 @@ public class Create extends Command {
     }
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
-        if (Config.db.data.get("category-" + guild.getIdLong()) == null) {
+        if (Config.db.Get("category-" + guild.getIdLong()) == null) {
             message.reply("This server is not configured for the channel feature. Please run enablecategory.").queue();
             return;
         }
@@ -29,12 +29,12 @@ public class Create extends Command {
 
         Integer numberOfOwnedChannels = Channels.channelsOwnedByID(guild, author.getId()).size();
 
-        if (numberOfOwnedChannels >= Channels.getMaxChannels(author.getIdLong())) {
+        if (numberOfOwnedChannels >= Channels.getMaxChannels(guild.getIdLong(), author.getIdLong())) {
             message.reply("You already own the max amount of channels!").queue();
             return;
         }
 
-        for (TextChannel z : guild.getCategoryById(Config.db.data.get("category-" + guild.getIdLong()))
+        for (TextChannel z : guild.getCategoryById(Config.db.Get("category-" + guild.getIdLong()))
                 .getTextChannels()) {
             if (z.getName().equals(String.join(" ", args)
                     .toLowerCase().replaceAll(" ", "-"))) {
@@ -47,10 +47,10 @@ public class Create extends Command {
 
         ChannelAction<TextChannel> textChannel = guild.createTextChannel(String.join(" ", args));
         textChannel.setTopic(author.getId());
-        textChannel.setParent(guild.getCategoryById(Config.db.data.get("category-" + guild.getIdLong())));
+        textChannel.setParent(guild.getCategoryById(Config.db.Get("category-" + guild.getIdLong())));
         textChannel.complete();
         message.reply("Channel created. You own: " + (numberOfOwnedChannels + 1) + " channels out of "
-                + Channels.getMaxChannels(author.getIdLong()) + " allowed.").queue();
+                + Channels.getMaxChannels(guild.getIdLong(), author.getIdLong()) + " allowed.").queue();
         return;
     }
 }

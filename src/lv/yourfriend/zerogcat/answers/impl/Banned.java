@@ -9,13 +9,13 @@ public class Banned extends Answer {
     public Banned() {
         super("banned", "Disables usage of the bot for banned users and responds with a L");
     }
-    
+
     public Boolean matcher(String message) {
         return true;
     }
 
     public Boolean execute(MessageReceivedEvent event) {
-        if(Config.db.data.get("banned-" + event.getAuthor().getId()) != null) {
+        if(Config.db.Get("banned-" + event.getAuthor().getId()) != null) {
             event.getMessage().addReaction(Emoji.fromUnicode("🇱")).queue();
             return true;
         }

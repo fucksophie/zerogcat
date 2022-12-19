@@ -26,7 +26,7 @@ public class EnableCategory extends Command {
                 message.reply("Category ID does not exist.").queue();
                 return;
             } else {
-                Config.db.data.put("category-" + guild.getId(), args.get(0));
+                Config.db.Set("category-" + guild.getId(), args.get(0));
                 message.reply("Category set!").queue();
                 return;
             }

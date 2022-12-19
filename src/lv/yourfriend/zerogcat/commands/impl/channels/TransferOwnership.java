@@ -19,7 +19,7 @@ public class TransferOwnership extends Command {
     }
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
-        if (Config.db.data.get("category-" + guild.getIdLong()) == null) {
+        if (Config.db.Get("category-" + guild.getIdLong()) == null) {
             message.reply("This server is not configured for the channel feature. Please run enablecategory.").queue();
             return;
         }
@@ -56,7 +56,7 @@ public class TransferOwnership extends Command {
 
         ArrayList<TextChannel> channelsOwnedByOtherPerson = Channels.channelsOwnedByID(guild, otherPerson);
 
-        if (channelsOwnedByOtherPerson.size() >= Channels.getMaxChannels(Long.valueOf(otherPerson))) {
+        if (channelsOwnedByOtherPerson.size() >= Channels.getMaxChannels(guild.getIdLong(), Long.valueOf(otherPerson))) {
             message.reply("The other person already owns the max amount of channels!").queue();
             return;
         }

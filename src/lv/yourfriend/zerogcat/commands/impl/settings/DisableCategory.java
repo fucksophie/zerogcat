@@ -17,11 +17,11 @@ public class DisableCategory extends Command {
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
         if (author.hasPermission(Permission.ADMINISTRATOR)) {
-            if (Config.db.data.get("category-" + guild.getId()) == null) {
+            if (Config.db.Get("category-" + guild.getId()) == null) {
                 message.reply("Category is already disabled!").queue();
                 return;
             } else {
-                Config.db.data.remove("category-" + guild.getId());
+                Config.db.Delete("category-" + guild.getId());
                 message.reply("Category disabled!").queue();
                 return;
             }

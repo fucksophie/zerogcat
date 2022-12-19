@@ -11,19 +11,19 @@ import lv.yourfriend.zerogcat.utils.Config;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 public class ZeroGcat extends ListenerAdapter {
+
     public static void main(String[] args) {
         File conf = new File(String.join("", args));
 
         if (conf.exists()) {
             Config.parse(conf);
         } else {
-            System.out.println("File does not exist");
+            System.out.println("Missing config.json!");
             System.exit(0);
         }
 
@@ -40,12 +40,6 @@ public class ZeroGcat extends ListenerAdapter {
         builder.setEnableShutdownHook(false);
 
         builder.build();
-    }
-
-    @Override
-    public void onReady(ReadyEvent event) {
-        Config.db.start(event);
-
     }
 
     @Override

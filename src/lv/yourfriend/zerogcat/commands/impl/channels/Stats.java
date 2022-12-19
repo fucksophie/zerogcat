@@ -19,7 +19,7 @@ public class Stats extends Command {
     }
 
     public void execute(ArrayList<String> args, Member author, Guild guild, Message message) {
-        if (Config.db.data.get("category-" + guild.getIdLong()) == null) {
+        if (Config.db.Get("category-" + guild.getIdLong()) == null) {
             message.reply("This server is not configured for the channel feature. Please run enablecategory.").queue();
             return;
         }
@@ -27,7 +27,7 @@ public class Stats extends Command {
         Integer amountOfChannels = 0;
         Integer amountOfMessages = 0;
 
-        for (TextChannel z : guild.getCategoryById(Config.db.data.get("category-" + guild.getIdLong()))
+        for (TextChannel z : guild.getCategoryById(Config.db.Get("category-" + guild.getIdLong()))
                 .getTextChannels()) {
             MessageHistory history = MessageHistory.getHistoryFromBeginning(z).complete();
             amountOfMessages += history.size();

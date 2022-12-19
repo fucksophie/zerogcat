@@ -38,11 +38,11 @@ public class SetLimits extends Command {
 
             if (args.get(1) == String.valueOf(Config.maxAmountOfChannels)) {
                 message.reply("Limits equal to default!").queue();
-                Config.db.data.remove("limits-" + args.get(0));
+                Config.db.Delete("limits-" + args.get(0) + "-" + guild.getIdLong());
                 return;
             }
 
-            Config.db.data.put("limits-" + args.get(0), args.get(1));
+            Config.db.Set("limits-" + args.get(0) + "-" + guild.getIdLong(), args.get(1));
             message.reply("Limits for " + u.getAsTag() + " set to " + args.get(1)).queue();
             return;
 
